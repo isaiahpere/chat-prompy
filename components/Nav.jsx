@@ -12,10 +12,10 @@ const Nav = () => {
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
-  // TEMP COMMMENT UNTIL API IS DONE
+  // On first load, retrieve the provider and set them into a state
   useEffect(() => {
     const setAuthProviders = async () => {
-      const response = await getProviders();
+      const response = await getProviders(); // next-auth/react
       setProviders(response);
     };
     setAuthProviders();
