@@ -10,9 +10,6 @@ export const GET = async (req, { params }) => {
       creator: id, // mongoId
     }).populate("creator");
 
-    console.log("PROMPTS");
-    console.log(prompts);
-
     return new Response(JSON.stringify(prompts), { status: 200 });
   } catch (error) {
     console.error(error);

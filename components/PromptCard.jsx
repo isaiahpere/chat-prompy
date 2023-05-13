@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
-const PromptCard = ({ post, handleTagClick, handleEdit, hanldeDelete }) => {
+const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   // router
   const router = useRouter();
   // session
@@ -21,16 +21,24 @@ const PromptCard = ({ post, handleTagClick, handleEdit, hanldeDelete }) => {
     setTimeout(() => setCopied(""), 3000);
   };
 
+  const handleUserProfile = () => {
+    console.log("You are going to hell!");
+  };
+
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
-        <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
+        <div
+          className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
+          onClick={handleUserProfile}
+        >
           <Image
             src={post.creator.image}
             alt="user_image"
             width={40}
             height={40}
             className="rounded-full object-contain"
+            priority={true}
           />
           <div className="flex flex-col">
             <h3 className="font-satoshi font-semibold text-gray-900">
@@ -46,11 +54,12 @@ const PromptCard = ({ post, handleTagClick, handleEdit, hanldeDelete }) => {
             src={
               copied === post.prompt
                 ? "/assets/icons/tick.svg"
-                : "assets/icons/copy.svg"
+                : "/assets/icons/copy.svg"
             }
             width={12}
             height={12}
             alt="copied alert"
+            priority={true}
           />
         </div>
       </div>
@@ -59,7 +68,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, hanldeDelete }) => {
         className="font-inter text-sm blue_gradient cursor-pointer"
         onClick={() => handleTagClick && handleTagClick(post.tag)}
       >
-        {post.tag}
+        #{post.tag}
       </p>
       {session?.user.id === post.creator._id && pathName === "/profile" && (
         <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
@@ -71,7 +80,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, hanldeDelete }) => {
           </p>
           <p
             className="font-inter text-sm orange_gradient cursor-pointer"
-            onClick={hanldeDelete}
+            onClick={handleDelete}
           >
             Delete
           </p>
